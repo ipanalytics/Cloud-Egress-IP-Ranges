@@ -84,8 +84,19 @@ Atlassian Cloud ranges are filtered to records where `direction` includes `egres
 
 Stripe publishes single IP addresses rather than CIDR blocks. The builder normalizes IPv4 addresses to `/32` records so downstream consumers can treat all outputs as CIDRs.
 
+## ASN/BGP
+
+- Feed: `https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS<asn>`
+- Source ID: `ripe_stat_announced_prefixes`
+- Source type: `asn_bgp`
+- Precision level: `L5`
+
+ASN/BGP records are generated from RIPEstat announced prefixes for curated providers in `src/cloud_egress_ip_ranges/sources/asn_bgp.py`. This currently covers high-priority VPS, hosting, regional cloud, CDN, edge, and scanner networks such as Hetzner, OVHcloud, DigitalOcean, Linode, Vultr, Scaleway, IONOS, UpCloud, Leaseweb, Akamai, Bunny.net, Gcore, CDN77, Imperva, Sucuri, Censys, and Shodan.
+
+These records prove that the prefix is announced by the mapped provider ASN. They do not prove exact product-level egress and are therefore kept separate from official feed/docs records.
+
 ## Cataloged Providers Without CIDR Records
 
 `provider-catalog.json` and `provider-catalog.md` retain the wider tier model: serverless/PaaS, edge/CDN, CI/CD, regional cloud, VPS/hosting, managed egress, SaaS webhooks, monitoring, and scanner sources.
 
-Providers without a defensible CIDR feed are cataloged with a collection method such as `docs_scrape_or_asn_bgp`, `customer_specific_capability`, or `capability_only`. The generated range feed does not emit placeholder CIDRs for them.
+Providers without a defensible CIDR feed are cataloged with a collection method such as `docs_scrape`, `customer_specific_capability`, or `capability_only`. The generated range feed does not emit placeholder CIDRs for them.

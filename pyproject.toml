@@ -16,6 +16,10 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Security",
 ]
+dependencies = [
+    "duckdb>=1.5.4",
+    "pyarrow>=24.0.0",
+]
 
 [project.scripts]
 cloud-egress-ip-ranges = "cloud_egress_ip_ranges.cli:main"

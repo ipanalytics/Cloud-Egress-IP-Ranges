@@ -1,0 +1,1640 @@
+# Public provider registry for cloud-egress-ip-ranges.
+# Source of truth for modeled provider tiers, collection method, and implementation status.
+providers:
+  - id: aws
+    name: Amazon Web Services
+    tier: 0
+    category: hyperscale_cloud
+    priority: 100
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - cloud
+      - serverless_possible
+      - cdn_possible
+  - id: azure
+    name: Microsoft Azure
+    tier: 0
+    category: hyperscale_cloud
+    priority: 100
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - cloud
+      - service_tags
+      - serverless_possible
+  - id: cloudflare
+    name: Cloudflare
+    tier: 0
+    category: edge_cdn_security
+    priority: 100
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - edge
+      - cdn
+      - waf
+      - workers_possible
+  - id: google_cloud
+    name: Google Cloud
+    tier: 0
+    category: hyperscale_cloud
+    priority: 100
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - cloud
+      - serverless_possible
+  - id: fastly
+    name: Fastly
+    tier: 0
+    category: edge_cdn
+    priority: 96
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - edge
+      - cdn
+      - compute_possible
+  - id: github
+    name: GitHub
+    tier: 0
+    category: ci_cd_dev_platform
+    priority: 95
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - ci_cd
+      - webhook
+      - static_hosting
+  - id: oracle_cloud
+    name: Oracle Cloud OCI
+    tier: 0
+    category: hyperscale_cloud
+    priority: 94
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - cloud
+      - serverless_possible
+  - id: gitlab
+    name: GitLab.com
+    tier: 0
+    category: ci_cd_dev_platform
+    priority: 82
+    collection_method: official_docs
+    implementation_status: implemented
+    labels:
+      - webhook
+      - web_api
+  - id: cloudflare_workers
+    name: Cloudflare Workers
+    tier: 1
+    category: edge_functions
+    priority: 100
+    collection_method: official_feed_plus_capability
+    implementation_status: covered_by_cloudflare
+    labels:
+      - workers_possible
+      - edge
+  - id: aws_lambda
+    name: AWS Lambda
+    tier: 1
+    category: serverless
+    priority: 96
+    collection_method: via_aws
+    implementation_status: covered_by_aws
+    labels:
+      - serverless_possible
+  - id: google_cloud_run
+    name: Google Cloud Run
+    tier: 1
+    category: serverless_container
+    priority: 96
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - serverless_possible
+  - id: vercel
+    name: Vercel
+    tier: 1
+    category: serverless_paas
+    priority: 96
+    collection_method: docs_scrape_or_capability
+    implementation_status: cataloged
+    labels:
+      - static_egress_supported
+      - dynamic_egress
+  - id: azure_app_service
+    name: Azure App Service
+    tier: 1
+    category: paas
+    priority: 94
+    collection_method: via_azure
+    implementation_status: covered_by_azure
+    labels:
+      - paas
+  - id: azure_functions
+    name: Azure Functions
+    tier: 1
+    category: serverless
+    priority: 94
+    collection_method: via_azure
+    implementation_status: covered_by_azure
+    labels:
+      - serverless_possible
+  - id: google_cloud_functions
+    name: Google Cloud Functions
+    tier: 1
+    category: serverless
+    priority: 94
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - serverless_possible
+  - id: render
+    name: Render
+    tier: 1
+    category: paas_app_hosting
+    priority: 94
+    collection_method: docs_scrape
+    implementation_status: planned
+    labels:
+      - paas
+      - outbound_egress
+  - id: netlify
+    name: Netlify
+    tier: 1
+    category: serverless_paas
+    priority: 92
+    collection_method: docs_scrape_or_capability
+    implementation_status: cataloged
+    labels:
+      - private_connectivity
+      - dynamic_egress
+  - id: aws_api_gateway
+    name: AWS API Gateway
+    tier: 1
+    category: serverless_api
+    priority: 90
+    collection_method: via_aws
+    implementation_status: covered_by_aws
+    labels:
+      - serverless_api
+  - id: fly_io
+    name: Fly.io
+    tier: 1
+    category: edge_app_hosting
+    priority: 90
+    collection_method: docs_scrape_or_capability
+    implementation_status: planned
+    labels:
+      - edge_app_hosting
+      - static_egress_possible
+  - id: google_app_engine
+    name: Google App Engine
+    tier: 1
+    category: paas
+    priority: 88
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - paas
+  - id: heroku
+    name: Heroku
+    tier: 1
+    category: paas
+    priority: 88
+    collection_method: docs_scrape_or_capability
+    implementation_status: planned
+    labels:
+      - paas
+      - private_spaces
+  - id: railway
+    name: Railway
+    tier: 1
+    category: paas_app_hosting
+    priority: 88
+    collection_method: docs_scrape_or_capability
+    implementation_status: planned
+    labels:
+      - paas
+      - static_egress_possible
+  - id: digitalocean_app_platform
+    name: DigitalOcean App Platform
+    tier: 1
+    category: paas
+    priority: 86
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - paas
+  - id: supabase_edge_functions
+    name: Supabase Edge Functions
+    tier: 1
+    category: edge_functions
+    priority: 86
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - unstable_egress
+  - id: deno_deploy
+    name: Deno Deploy
+    tier: 1
+    category: edge_serverless
+    priority: 84
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - edge_functions
+  - id: firebase_functions
+    name: Firebase Functions
+    tier: 1
+    category: serverless
+    priority: 84
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - serverless_possible
+  - id: digitalocean_functions
+    name: DigitalOcean Functions
+    tier: 1
+    category: serverless
+    priority: 82
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - serverless_possible
+  - id: koyeb
+    name: Koyeb
+    tier: 1
+    category: paas_serverless
+    priority: 80
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: alibaba_function_compute
+    name: Alibaba Function Compute
+    tier: 1
+    category: serverless
+    priority: 78
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - serverless_possible
+  - id: aws_app_runner
+    name: AWS App Runner
+    tier: 1
+    category: paas
+    priority: 78
+    collection_method: via_aws
+    implementation_status: covered_by_aws
+    labels:
+      - paas
+  - id: ibm_code_engine
+    name: IBM Code Engine
+    tier: 1
+    category: serverless_paas
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - serverless_possible
+  - id: northflank
+    name: Northflank
+    tier: 1
+    category: paas
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: platform_sh
+    name: Platform.sh
+    tier: 1
+    category: paas
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: replit_deployments
+    name: Replit Deployments
+    tier: 1
+    category: paas_dev_hosting
+    priority: 74
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - paas
+  - id: tencent_scf
+    name: Tencent SCF
+    tier: 1
+    category: serverless
+    priority: 74
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - serverless_possible
+  - id: aws_amplify_hosting
+    name: AWS Amplify Hosting
+    tier: 1
+    category: app_hosting
+    priority: 72
+    collection_method: via_aws
+    implementation_status: covered_by_aws
+    labels:
+      - static_hosting
+  - id: clever_cloud
+    name: Clever Cloud
+    tier: 1
+    category: paas
+    priority: 72
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: firebase_hosting
+    name: Firebase Hosting
+    tier: 1
+    category: edge_static
+    priority: 72
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google
+    labels:
+      - static_hosting
+  - id: huawei_functiongraph
+    name: Huawei FunctionGraph
+    tier: 1
+    category: serverless
+    priority: 72
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - serverless_possible
+  - id: oracle_functions
+    name: Oracle Functions
+    tier: 1
+    category: serverless
+    priority: 72
+    collection_method: via_oracle_cloud
+    implementation_status: covered_by_oracle_cloud
+    labels:
+      - serverless_possible
+  - id: scalingo
+    name: Scalingo
+    tier: 1
+    category: paas
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: pythonanywhere
+    name: PythonAnywhere
+    tier: 1
+    category: paas
+    priority: 68
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: zeabur
+    name: Zeabur
+    tier: 1
+    category: paas
+    priority: 68
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - paas
+  - id: glitch
+    name: Glitch
+    tier: 1
+    category: app_hosting
+    priority: 62
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - app_hosting
+  - id: qovery
+    name: Qovery
+    tier: 1
+    category: paas_layer
+    priority: 60
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - runs_on_customer_cloud
+  - id: val_town
+    name: Val Town
+    tier: 1
+    category: serverless_dev
+    priority: 58
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - serverless_dev
+  - id: sst_opennext_partners
+    name: SST / OpenNext hosting partners
+    tier: 1
+    category: framework_layer
+    priority: 40
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - framework_layer
+  - id: akamai
+    name: Akamai
+    tier: 2
+    category: cdn_security
+    priority: 96
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+      - customer_specific
+  - id: azure_front_door
+    name: Azure Front Door
+    tier: 2
+    category: cdn_edge
+    priority: 94
+    collection_method: via_azure
+    implementation_status: covered_by_azure
+    labels:
+      - edge
+      - cdn
+  - id: gcore
+    name: Gcore
+    tier: 2
+    category: cdn_edge_cloud
+    priority: 90
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+      - edge
+  - id: azure_cdn
+    name: Azure CDN
+    tier: 2
+    category: cdn
+    priority: 88
+    collection_method: via_azure
+    implementation_status: covered_by_azure
+    labels:
+      - cdn
+  - id: bunny_net
+    name: Bunny.net
+    tier: 2
+    category: cdn_edge
+    priority: 88
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+      - edge
+  - id: google_cloud_cdn
+    name: Google Cloud CDN
+    tier: 2
+    category: cdn
+    priority: 86
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - cdn
+  - id: imperva
+    name: Imperva
+    tier: 2
+    category: waf_cdn
+    priority: 82
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - waf
+      - cdn
+  - id: vercel_edge_network
+    name: Vercel Edge Network
+    tier: 2
+    category: edge_paas
+    priority: 82
+    collection_method: docs_scrape_or_capability
+    implementation_status: cataloged
+    labels:
+      - edge
+  - id: netlify_cdn
+    name: Netlify CDN
+    tier: 2
+    category: cdn_paas
+    priority: 78
+    collection_method: docs_scrape_or_capability
+    implementation_status: cataloged
+    labels:
+      - cdn
+  - id: cdn77
+    name: CDN77
+    tier: 2
+    category: cdn
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+  - id: sucuri
+    name: Sucuri
+    tier: 2
+    category: waf_cdn
+    priority: 74
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - waf
+      - cdn
+  - id: cachefly
+    name: CacheFly
+    tier: 2
+    category: cdn
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+  - id: keycdn
+    name: KeyCDN
+    tier: 2
+    category: cdn
+    priority: 68
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+  - id: quic_cloud
+    name: QUIC.cloud
+    tier: 2
+    category: cdn_wp_edge
+    priority: 66
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - cdn
+  - id: section_io
+    name: Section.io
+    tier: 2
+    category: edge_platform
+    priority: 58
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - edge
+  - id: belugacdn
+    name: BelugaCDN
+    tier: 2
+    category: cdn
+    priority: 50
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cdn
+  - id: edgio
+    name: Edgio
+    tier: 2
+    category: cdn_legacy
+    priority: 50
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cdn
+      - legacy
+  - id: jsdelivr
+    name: jsDelivr
+    tier: 2
+    category: public_cdn
+    priority: 50
+    collection_method: capability_only
+    implementation_status: cataloged
+    labels:
+      - cdn
+  - id: stackpath
+    name: StackPath legacy
+    tier: 2
+    category: cdn_legacy
+    priority: 45
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cdn
+      - legacy
+  - id: github_actions
+    name: GitHub Actions
+    tier: 3
+    category: ci_cd
+    priority: 100
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - ci_cd
+  - id: github_webhooks
+    name: GitHub Webhooks
+    tier: 3
+    category: webhook_dev
+    priority: 96
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - webhook
+  - id: azure_devops_hosted_agents
+    name: Azure DevOps Hosted Agents
+    tier: 3
+    category: ci_cd
+    priority: 90
+    collection_method: via_azure
+    implementation_status: covered_by_azure
+    labels:
+      - ci_cd
+  - id: atlassian
+    name: Atlassian Cloud
+    tier: 3
+    category: webhook_saas
+    priority: 88
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - webhook
+      - dev_platform
+  - id: gitlab_web_api
+    name: GitLab.com Web/API
+    tier: 3
+    category: ci_dev
+    priority: 86
+    collection_method: official_docs
+    implementation_status: implemented
+    labels:
+      - webhook
+      - web_api
+  - id: circleci
+    name: CircleCI
+    tier: 3
+    category: ci_cd
+    priority: 82
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: github_pages
+    name: GitHub Pages
+    tier: 3
+    category: static_hosting
+    priority: 82
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - static_hosting
+  - id: bitbucket_pipelines
+    name: Bitbucket Pipelines
+    tier: 3
+    category: ci_cd
+    priority: 80
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: aws_codebuild
+    name: AWS CodeBuild
+    tier: 3
+    category: ci_cd
+    priority: 78
+    collection_method: via_aws
+    implementation_status: covered_by_aws
+    labels:
+      - ci_cd
+  - id: google_cloud_build
+    name: Google Cloud Build
+    tier: 3
+    category: ci_cd
+    priority: 78
+    collection_method: via_google_cloud
+    implementation_status: covered_by_google_cloud
+    labels:
+      - ci_cd
+  - id: buildkite
+    name: Buildkite
+    tier: 3
+    category: ci_cd
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: gitlab_saas_runners
+    name: GitLab SaaS runners
+    tier: 3
+    category: ci_cd
+    priority: 70
+    collection_method: capability_or_asn_bgp
+    implementation_status: cataloged
+    labels:
+      - ci_cd
+  - id: semaphore_ci
+    name: Semaphore CI
+    tier: 3
+    category: ci_cd
+    priority: 66
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: travis_ci
+    name: Travis CI
+    tier: 3
+    category: ci_cd
+    priority: 66
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: harness_cloud
+    name: Harness Cloud
+    tier: 3
+    category: ci_cd
+    priority: 62
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: appveyor
+    name: AppVeyor
+    tier: 3
+    category: ci_cd
+    priority: 60
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: codefresh
+    name: Codefresh
+    tier: 3
+    category: ci_cd
+    priority: 58
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: teamcity_cloud
+    name: TeamCity Cloud
+    tier: 3
+    category: ci_cd
+    priority: 58
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: buddy
+    name: Buddy
+    tier: 3
+    category: ci_cd
+    priority: 54
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: drone_cloud
+    name: Drone Cloud
+    tier: 3
+    category: ci_cd
+    priority: 45
+    collection_method: asn_bgp_or_capability
+    implementation_status: planned
+    labels:
+      - ci_cd
+  - id: hetzner
+    name: Hetzner Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 94
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+      - hosting
+  - id: ovhcloud
+    name: OVHcloud
+    tier: 4
+    category: regional_cloud
+    priority: 92
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: alibaba_cloud
+    name: Alibaba Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 88
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: scaleway
+    name: Scaleway
+    tier: 4
+    category: regional_cloud
+    priority: 88
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: ibm_cloud
+    name: IBM Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 86
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: ionos
+    name: IONOS Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 86
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: leaseweb
+    name: Leaseweb Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 86
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+      - hosting
+  - id: upcloud
+    name: UpCloud
+    tier: 4
+    category: regional_cloud
+    priority: 86
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: tencent_cloud
+    name: Tencent Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 84
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: huawei_cloud
+    name: Huawei Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 80
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: exoscale
+    name: Exoscale
+    tier: 4
+    category: regional_cloud
+    priority: 78
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: open_telekom_cloud
+    name: Open Telekom Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 78
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: yandex_cloud
+    name: Yandex Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 78
+    collection_method: asn_bgp_or_docs
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: selectel
+    name: Selectel
+    tier: 4
+    category: regional_cloud
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: stackit
+    name: STACKIT
+    tier: 4
+    category: regional_cloud
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: naver_cloud
+    name: Naver Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 72
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: vk_cloud
+    name: VK Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 72
+    collection_method: asn_bgp_or_docs
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: infomaniak
+    name: Infomaniak Public Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: sakura_cloud
+    name: Sakura Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: baidu_ai_cloud
+    name: Baidu AI Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 68
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+  - id: timeweb_cloud
+    name: Timeweb Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 64
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: cloud_ru
+    name: Cloud.ru
+    tier: 4
+    category: regional_cloud
+    priority: 62
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: kingsoft_cloud
+    name: Kingsoft Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 62
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: ucloud
+    name: UCloud
+    tier: 4
+    category: regional_cloud
+    priority: 62
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: kakao_cloud
+    name: Kakao Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 60
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: mts_cloud
+    name: MTS Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 60
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: arvancloud
+    name: ArvanCloud
+    tier: 4
+    category: regional_cloud_cdn
+    priority: 58
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud
+      - cdn
+  - id: jd_cloud
+    name: JD Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 58
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: nhn_cloud
+    name: NHN Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 58
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: beeline_cloud
+    name: Beeline Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 56
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: rostelecom_cloud
+    name: Rostelecom Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 56
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: stc_cloud
+    name: STC Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 54
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: etisalat_cloud
+    name: Etisalat Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 52
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: locaweb
+    name: Locaweb
+    tier: 4
+    category: regional_cloud_hosting
+    priority: 52
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+      - hosting
+  - id: turkcell_cloud
+    name: Turkcell Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 52
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: catalyst_cloud
+    name: Catalyst Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 50
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: macquarie_cloud
+    name: Macquarie Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 50
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: uol_host
+    name: UOL Host
+    tier: 4
+    category: regional_cloud_hosting
+    priority: 50
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+      - hosting
+  - id: kinghost
+    name: KingHost
+    tier: 4
+    category: regional_cloud_hosting
+    priority: 48
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - hosting
+  - id: safaricom_cloud
+    name: Safaricom Cloud
+    tier: 4
+    category: regional_cloud
+    priority: 44
+    collection_method: asn_bgp
+    implementation_status: planned
+    labels:
+      - cloud
+  - id: digitalocean
+    name: DigitalOcean
+    tier: 5
+    category: cloud_vps
+    priority: 98
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+      - paas_possible
+  - id: linode
+    name: Akamai Connected Cloud / Linode
+    tier: 5
+    category: cloud_vps
+    priority: 96
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: vultr
+    name: Vultr / Choopa
+    tier: 5
+    category: cloud_vps
+    priority: 96
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - cloud_vps
+  - id: contabo
+    name: Contabo
+    tier: 5
+    category: hosting_vps
+    priority: 92
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: netcup
+    name: netcup
+    tier: 5
+    category: hosting_vps
+    priority: 86
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: equinix_metal
+    name: Equinix Metal
+    tier: 5
+    category: bare_metal_datacenter
+    priority: 84
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - bare_metal
+  - id: rackspace
+    name: Rackspace
+    tier: 5
+    category: hosting_vps
+    priority: 84
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: hivelocity
+    name: Hivelocity
+    tier: 5
+    category: hosting_vps
+    priority: 78
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: liquid_web
+    name: Liquid Web
+    tier: 5
+    category: hosting_vps
+    priority: 78
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: strato
+    name: Strato
+    tier: 5
+    category: hosting_vps
+    priority: 78
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: hostdime
+    name: HostDime
+    tier: 5
+    category: hosting_vps
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: hostinger
+    name: Hostinger
+    tier: 5
+    category: hosting_vps
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: phoenixnap
+    name: PhoenixNAP
+    tier: 5
+    category: hosting_vps
+    priority: 76
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: clouvider
+    name: Clouvider
+    tier: 5
+    category: hosting_vps
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: godaddy
+    name: GoDaddy Hosting
+    tier: 5
+    category: hosting_vps
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: m247
+    name: M247
+    tier: 5
+    category: hosting_vps
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: namecheap
+    name: Namecheap Hosting
+    tier: 5
+    category: hosting_vps
+    priority: 70
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: nforce
+    name: NForce
+    tier: 5
+    category: hosting_vps
+    priority: 66
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: worldstream
+    name: Worldstream
+    tier: 5
+    category: hosting_vps
+    priority: 66
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: serverius
+    name: Serverius
+    tier: 5
+    category: hosting_vps
+    priority: 64
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: voxility
+    name: Voxility
+    tier: 5
+    category: hosting_vps
+    priority: 64
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: aruba_cloud
+    name: Aruba Cloud
+    tier: 5
+    category: hosting_vps
+    priority: 62
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: seeweb
+    name: Seeweb
+    tier: 5
+    category: hosting_vps
+    priority: 60
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: transip
+    name: TransIP
+    tier: 5
+    category: hosting_vps
+    priority: 60
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: host_europe
+    name: Host Europe
+    tier: 5
+    category: hosting_vps
+    priority: 58
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - hosting
+  - id: quota_guard
+    name: QuotaGuard
+    tier: 6
+    category: managed_egress
+    priority: 90
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - managed_egress
+  - id: fixie
+    name: Fixie
+    tier: 6
+    category: managed_egress
+    priority: 82
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - managed_egress
+  - id: proximo
+    name: Proximo
+    tier: 6
+    category: managed_egress
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - managed_egress
+  - id: cloudflare_dedicated_egress
+    name: Cloudflare Dedicated Egress IPs
+    tier: 6
+    category: managed_egress
+    priority: 72
+    collection_method: customer_specific_capability
+    implementation_status: cataloged
+    labels:
+      - customer_specific
+  - id: ngrok
+    name: ngrok
+    tier: 6
+    category: dev_tunnel_edge
+    priority: 72
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - tunnel
+      - edge
+  - id: stripe
+    name: Stripe Webhooks/API
+    tier: 7
+    category: webhook_automation
+    priority: 92
+    collection_method: official_feed
+    implementation_status: implemented
+    labels:
+      - webhook
+      - payments
+  - id: shopify_webhooks
+    name: Shopify Webhooks
+    tier: 7
+    category: webhook_automation
+    priority: 80
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - webhook
+      - ecommerce
+  - id: twilio_webhooks
+    name: Twilio Webhooks
+    tier: 7
+    category: webhook_automation
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - webhook
+      - comms
+  - id: zapier
+    name: Zapier
+    tier: 7
+    category: webhook_automation
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - automation
+  - id: sendgrid
+    name: SendGrid
+    tier: 7
+    category: webhook_automation
+    priority: 74
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - email
+      - webhook
+  - id: datadog_synthetics
+    name: Datadog Synthetic
+    tier: 7
+    category: monitoring_sources
+    priority: 72
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - monitoring
+  - id: mailgun
+    name: Mailgun
+    tier: 7
+    category: webhook_automation
+    priority: 72
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - email
+      - webhook
+  - id: make
+    name: Make.com
+    tier: 7
+    category: webhook_automation
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - automation
+  - id: pingdom
+    name: Pingdom
+    tier: 7
+    category: monitoring_sources
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - monitoring
+  - id: uptimerobot
+    name: UptimeRobot
+    tier: 7
+    category: monitoring_sources
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - monitoring
+  - id: postmark
+    name: Postmark
+    tier: 7
+    category: webhook_automation
+    priority: 68
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - email
+      - webhook
+  - id: better_stack
+    name: Better Stack
+    tier: 7
+    category: monitoring_sources
+    priority: 64
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - monitoring
+  - id: statuscake
+    name: StatusCake
+    tier: 7
+    category: monitoring_sources
+    priority: 58
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - monitoring
+  - id: censys
+    name: Censys
+    tier: 8
+    category: internet_scanner
+    priority: 90
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - known_scanner
+  - id: shodan
+    name: Shodan
+    tier: 8
+    category: internet_scanner
+    priority: 90
+    collection_method: asn_bgp
+    implementation_status: implemented
+    labels:
+      - known_scanner
+  - id: shadowserver
+    name: Shadowserver
+    tier: 8
+    category: internet_measurement
+    priority: 88
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - measurement
+  - id: rapid7_sonar
+    name: Rapid7 Sonar
+    tier: 8
+    category: internet_measurement
+    priority: 82
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - measurement
+  - id: binaryedge
+    name: BinaryEdge
+    tier: 8
+    category: internet_scanner
+    priority: 76
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - known_scanner
+  - id: greynoise
+    name: GreyNoise
+    tier: 8
+    category: internet_intel
+    priority: 70
+    collection_method: optional_api
+    implementation_status: cataloged
+    labels:
+      - intel
+  - id: leakix
+    name: LeakIX
+    tier: 8
+    category: internet_scanner
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - known_scanner
+  - id: zoomeye
+    name: ZoomEye
+    tier: 8
+    category: internet_scanner
+    priority: 70
+    collection_method: docs_scrape_or_asn_bgp
+    implementation_status: planned
+    labels:
+      - known_scanner

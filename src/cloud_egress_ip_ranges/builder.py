@@ -11,6 +11,7 @@ from typing import Iterable
 
 from .models import EgressRangeRecord, SCHEMA_VERSION, utc_now_iso
 from .provider_catalog import provider_catalog
+from .sources.asn_bgp import RIPESTAT_ANNOUNCED_PREFIXES_URL, fetch_ripe_stat_asn_records, parse_ripe_stat_announced_prefixes, ASN_PROVIDER_SPECS
 from .sources.atlassian import parse_atlassian_ip_ranges
 from .sources.aws import parse_aws_ip_ranges
 from .sources.azure import parse_azure_service_tags
@@ -153,6 +154,14 @@ SOURCE_CATALOG = [
         "classification": "Stripe API source IPs",
         "live": True,
     },
+    {
+        "provider": "multi_provider",
+        "feed": "RIPEstat announced-prefixes",
+        "source_id": "ripe_stat_announced_prefixes",
+        "url": RIPESTAT_ANNOUNCED_PREFIXES_URL,
+        "classification": "ASN/BGP announced prefixes for curated providers",
+        "live": True,
+    },
 ]
 CSV_FIELDS = [
     "cidr",
@@ -193,6 +202,8 @@ def build_from_fixtures(fixtures_dir: Path | str = "tests/fixtures") -> list[Egr
     records.extend(parse_atlassian_ip_ranges(fixtures / "atlassian-ip-ranges.json"))
     records.extend(parse_stripe_ips(fixtures / "stripe-webhook-ips.json", group="WEBHOOKS", source_label="stripe_webhook_ips_json"))
     records.extend(parse_stripe_ips(fixtures / "stripe-api-ips.json", group="API", source_label="stripe_api_ips_json"))
+    for spec in ASN_PROVIDER_SPECS[:8]:
+        records.extend(parse_ripe_stat_announced_prefixes(fixtures / "ripe-announced-prefixes.json", spec, spec.asns[0]))
     return sort_records(records)
 
 
@@ -228,6 +239,7 @@ def build_from_live_sources(
     records.extend(parse_atlassian_ip_ranges(atlassian_url))
     records.extend(parse_stripe_ips(stripe_webhooks_url, group="WEBHOOKS", source_label="stripe_webhook_ips_json"))
     records.extend(parse_stripe_ips(stripe_api_url, group="API", source_label="stripe_api_ips_json"))
+    records.extend(fetch_ripe_stat_asn_records())
     return sort_records(records)
 
 

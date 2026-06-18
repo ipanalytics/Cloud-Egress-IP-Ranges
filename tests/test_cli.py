@@ -4,7 +4,6 @@ import json
 import subprocess
 import sys
 import unittest
-import pyarrow
 
 def run_cli(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(

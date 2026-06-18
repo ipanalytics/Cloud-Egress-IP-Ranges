@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
+from .sources.asn_bgp import ASN_PROVIDER_SPECS
+
+ASN_BGP_IMPLEMENTED_PROVIDERS = {spec.provider for spec in ASN_PROVIDER_SPECS}
+
 
 @dataclass(frozen=True)
 class ProviderCatalogEntry:
@@ -227,4 +231,11 @@ PROVIDER_CATALOG: tuple[ProviderCatalogEntry, ...] = (
 
 
 def provider_catalog() -> list[dict]:
-    return [item.to_dict() for item in PROVIDER_CATALOG]
+    catalog = []
+    for item in PROVIDER_CATALOG:
+        data = item.to_dict()
+        if data["provider"] in ASN_BGP_IMPLEMENTED_PROVIDERS and data["implementation_status"] != "implemented":
+            data["implementation_status"] = "implemented"
+            data["collection_method"] = "asn_bgp"
+        catalog.append(data)
+    return catalog

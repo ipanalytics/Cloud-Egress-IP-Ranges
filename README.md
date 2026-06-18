@@ -83,12 +83,14 @@ The release workflow generates `sources.md` on every build and uses it as the Gi
 | Atlassian | Atlassian Cloud IP ranges | `atlassian_ip_ranges_json` | Atlassian Cloud egress ranges |
 | Stripe | Stripe webhook IPs | `stripe_webhook_ips_json` | webhook source IPs |
 | Stripe | Stripe API IPs | `stripe_api_ips_json` | API source IPs |
+| Multiple providers | RIPEstat announced-prefixes | `ripe_stat_announced_prefixes` | ASN/BGP announced prefixes |
 
 `provider-catalog.md` is generated beside the feed. It tracks all modeled provider tiers, including providers that are cataloged for ASN/BGP, docs scraping, customer-specific egress, or capability-only handling but are not emitted as CIDRs until a defensible source is implemented.
 
 ## Features
 
 - Official feed ingestion for AWS, Google, Azure, Oracle, Cloudflare, Fastly, GitHub, GitLab, Atlassian, and Stripe.
+- ASN/BGP enrichment through RIPEstat announced-prefixes for curated VPS, hosting, regional cloud, CDN, and scanner providers.
 - Conservative classification model with `L0` through `L5` precision levels.
 - Explicit `confidence`, `false_positive_risk`, and `recommended_action` fields.
 - Deterministic offline builds for repeatable CI and tests.

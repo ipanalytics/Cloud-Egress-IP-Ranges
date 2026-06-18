@@ -21,6 +21,7 @@ The workflow:
 - runs compile, unittest, and lint checks;
 - resolves the current Azure Service Tags JSON URL from Microsoft Download Center;
 - builds live artifacts from AWS, Google, Azure, Oracle, Cloudflare, Fastly, GitHub, GitLab, Atlassian, and Stripe official feeds/docs;
+- enriches curated VPS, hosting, regional cloud, CDN, edge, and scanner providers from RIPEstat ASN/BGP announced prefixes;
 - publishes stable release assets on the `daily` tag;
 - deploys the static GitHub Pages dashboard from `site/`.
 

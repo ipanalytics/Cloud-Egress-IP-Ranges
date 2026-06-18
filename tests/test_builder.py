@@ -6,7 +6,6 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
-import pyarrow
 
 from cloud_egress_ip_ranges.builder import (
     EGRESS_CAPABILITIES_JSON,
