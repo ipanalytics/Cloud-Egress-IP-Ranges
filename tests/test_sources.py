@@ -4,6 +4,7 @@ from pathlib import Path
 import unittest
 
 from cloud_egress_ip_ranges.sources.aws import parse_aws_ip_ranges
+from cloud_egress_ip_ranges.sources.asn_bgp import ASN_PROVIDER_SPECS, parse_ripe_stat_announced_prefixes
 from cloud_egress_ip_ranges.sources.azure import parse_azure_service_tags
 from cloud_egress_ip_ranges.sources.atlassian import parse_atlassian_ip_ranges
 from cloud_egress_ip_ranges.sources.cloudflare import parse_cloudflare_api, parse_cloudflare_text
@@ -99,6 +100,18 @@ class SourceParserTests(unittest.TestCase):
         self.assertEqual(records[0].provider, "stripe")
         self.assertEqual(records[0].cidr, "3.18.12.63/32")
         self.assertEqual(records[0].service_hint, "stripe_webhooks")
+
+    def test_ripe_stat_asn_bgp_parser_marks_weak_inference(self) -> None:
+        records = parse_ripe_stat_announced_prefixes(
+            FIXTURES / "ripe-announced-prefixes.json",
+            ASN_PROVIDER_SPECS[0],
+            ASN_PROVIDER_SPECS[0].asns[0],
+        )
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0].source, "ripe_stat_announced_prefixes")
+        self.assertEqual(records[0].source_type, "asn_bgp")
+        self.assertEqual(records[0].precision_level, "L5")
+        self.assertIn("AS", records[0].network_border_group)
 
     def test_platform_metadata_has_no_fake_cidrs(self) -> None:
         metadata = platform_metadata()

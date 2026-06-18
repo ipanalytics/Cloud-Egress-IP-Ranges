@@ -1,0 +1,26 @@
+{
+  "status": "ok",
+  "data": {
+    "resource": "24940",
+    "prefixes": [
+      {
+        "prefix": "94.130.0.0/16",
+        "timelines": [
+          {
+            "starttime": "2026-06-04T00:00:00",
+            "endtime": "2026-06-18T00:00:00"
+          }
+        ]
+      },
+      {
+        "prefix": "2a01:4f8::/32",
+        "timelines": [
+          {
+            "starttime": "2026-06-04T00:00:00",
+            "endtime": "2026-06-18T00:00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

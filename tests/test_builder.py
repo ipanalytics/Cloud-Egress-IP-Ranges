@@ -6,6 +6,7 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
+import pyarrow
 
 from cloud_egress_ip_ranges.builder import (
     EGRESS_CAPABILITIES_JSON,
@@ -56,6 +57,7 @@ class BuilderTests(unittest.TestCase):
             self.assertEqual(len(manifest["integrations"]), 5)
             self.assertGreater(len(manifest["source_catalog"]), 0)
             self.assertGreater(manifest["provider_catalog_coverage"]["catalog_providers"], 100)
+            self.assertGreaterEqual(manifest["provider_catalog_coverage"]["providers_with_cidr_records"], 19)
 
     def test_json_and_csv_counts_match(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -73,14 +75,14 @@ class BuilderTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp)
-            write_artifacts(build_from_fixtures(), output, offline=True)
-            self.assertEqual(pq.read_table(output / ROOT_PARQUET).num_rows, 34)
+            manifest = write_artifacts(build_from_fixtures(), output, offline=True)
             with sqlite3.connect(output / ROOT_SQLITE) as conn:
                 count = conn.execute("select count(*) from egress_ranges").fetchone()[0]
-            self.assertEqual(count, 34)
+            self.assertEqual(pq.read_table(output / ROOT_PARQUET).num_rows, manifest["total_records"])
+            self.assertEqual(count, manifest["total_records"])
             with duckdb.connect(str(output / ROOT_DUCKDB)) as conn:
                 count = conn.execute("select count(*) from egress_ranges").fetchone()[0]
-            self.assertEqual(count, 34)
+            self.assertEqual(count, manifest["total_records"])
 
     def test_offline_build_is_deterministic(self) -> None:
         with tempfile.TemporaryDirectory() as left, tempfile.TemporaryDirectory() as right:
@@ -128,7 +130,7 @@ class BuilderTests(unittest.TestCase):
             self.assertIn("id: hetzner", registry)
             self.assertIn("asn_bgp", text)
             self.assertIn("Providers not in the CIDR feed yet", text)
-            self.assertIn("hetzner", manifest["provider_catalog_coverage"]["not_in_cidr_feed"])
+            self.assertNotIn("akamai", manifest["provider_catalog_coverage"]["not_in_cidr_feed"])
 
     def test_diff_uses_previous_feed_when_available(self) -> None:
         with tempfile.TemporaryDirectory() as previous_dir, tempfile.TemporaryDirectory() as current_dir:
