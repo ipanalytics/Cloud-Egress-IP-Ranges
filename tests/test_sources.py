@@ -6,6 +6,7 @@ import unittest
 from cloud_egress_ip_ranges.sources.aws import parse_aws_ip_ranges
 from cloud_egress_ip_ranges.sources.azure import parse_azure_service_tags
 from cloud_egress_ip_ranges.sources.cloudflare import parse_cloudflare_api, parse_cloudflare_text
+from cloud_egress_ip_ranges.sources.common import build_request
 from cloud_egress_ip_ranges.sources.google import parse_google_ranges
 from cloud_egress_ip_ranges.sources.platforms import platform_metadata
 
@@ -56,7 +57,11 @@ class SourceParserTests(unittest.TestCase):
         self.assertTrue(all("cidr" not in item for item in metadata))
         self.assertTrue(all(item["public_ranges_available"] is False for item in metadata))
 
+    def test_live_fetch_request_uses_provider_friendly_headers(self) -> None:
+        request = build_request("https://download.microsoft.com/example.json")
+        self.assertIn("cloud-egress-ip-ranges", request.headers["User-agent"])
+        self.assertIn("application/json", request.headers["Accept"])
+
 
 if __name__ == "__main__":
     unittest.main()
-
