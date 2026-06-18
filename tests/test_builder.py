@@ -4,6 +4,8 @@ import csv
 import json
 from pathlib import Path
 import sqlite3
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -141,6 +143,30 @@ class BuilderTests(unittest.TestCase):
             diff = json.loads((current / "diff" / LATEST_JSON).read_text(encoding="utf-8"))
             self.assertEqual(diff["added_count"], 1)
             self.assertEqual(diff["removed_count"], 0)
+
+    def test_build_script_falls_back_to_previous_feed_on_live_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as previous_dir, tempfile.TemporaryDirectory() as output_dir:
+            previous = Path(previous_dir)
+            write_artifacts(build_from_fixtures(), previous, offline=True)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/build.py",
+                    "--azure-service-tags-url",
+                    "https://127.0.0.1:1/does-not-exist.json",
+                    "--previous-feed",
+                    str(previous / ROOT_JSON),
+                    "--output-dir",
+                    output_dir,
+                ],
+                cwd=Path(__file__).resolve().parents[1],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("reusing previous feed", result.stdout)
+            self.assertTrue((Path(output_dir) / ROOT_JSON).exists())
 
 
 if __name__ == "__main__":

@@ -87,9 +87,8 @@ def fetch_ripe_stat_asn_records(specs: tuple[AsnProviderSpec, ...] = ASN_PROVIDE
                 records.extend(
                     parse_ripe_stat_announced_prefixes(RIPESTAT_ANNOUNCED_PREFIXES_URL.format(asn=asn), spec, asn)
                 )
-            except ValueError as exc:
-                if "no prefixes" not in str(exc):
-                    raise
+            except Exception:
+                continue
     return records
 
 

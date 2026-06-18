@@ -230,16 +230,35 @@ def build_from_live_sources(
     records.extend(parse_google_ranges(google_cloud_url, feed_kind="cloud"))
     records.extend(parse_google_ranges(google_goog_url, feed_kind="goog"))
     records.extend(parse_azure_service_tags(azure_service_tags_url))
-    records.extend(parse_oracle_public_ip_ranges(oracle_url))
-    records.extend(parse_cloudflare_text(cloudflare_v4_url, source_label="cloudflare_ips_v4"))
-    records.extend(parse_cloudflare_text(cloudflare_v6_url, source_label="cloudflare_ips_v6"))
-    records.extend(parse_fastly_public_ip_list(fastly_url))
-    records.extend(parse_github_meta(github_meta_url))
-    records.extend(parse_gitlab_com_docs(gitlab_docs_url))
-    records.extend(parse_atlassian_ip_ranges(atlassian_url))
-    records.extend(parse_stripe_ips(stripe_webhooks_url, group="WEBHOOKS", source_label="stripe_webhook_ips_json"))
-    records.extend(parse_stripe_ips(stripe_api_url, group="API", source_label="stripe_api_ips_json"))
-    records.extend(fetch_ripe_stat_asn_records())
+
+    def extend_optional(name: str, loader) -> None:
+        try:
+            records.extend(loader())
+        except Exception as exc:
+            print(f"warning: skipped optional source {name}: {exc}")
+
+    extend_optional("oracle_public_ip_ranges_json", lambda: parse_oracle_public_ip_ranges(oracle_url))
+    extend_optional(
+        "cloudflare_ips_v4",
+        lambda: parse_cloudflare_text(cloudflare_v4_url, source_label="cloudflare_ips_v4"),
+    )
+    extend_optional(
+        "cloudflare_ips_v6",
+        lambda: parse_cloudflare_text(cloudflare_v6_url, source_label="cloudflare_ips_v6"),
+    )
+    extend_optional("fastly_public_ip_list", lambda: parse_fastly_public_ip_list(fastly_url))
+    extend_optional("github_meta_api", lambda: parse_github_meta(github_meta_url))
+    extend_optional("gitlab_com_docs", lambda: parse_gitlab_com_docs(gitlab_docs_url))
+    extend_optional("atlassian_ip_ranges_json", lambda: parse_atlassian_ip_ranges(atlassian_url))
+    extend_optional(
+        "stripe_webhook_ips_json",
+        lambda: parse_stripe_ips(stripe_webhooks_url, group="WEBHOOKS", source_label="stripe_webhook_ips_json"),
+    )
+    extend_optional(
+        "stripe_api_ips_json",
+        lambda: parse_stripe_ips(stripe_api_url, group="API", source_label="stripe_api_ips_json"),
+    )
+    extend_optional("ripe_stat_announced_prefixes", fetch_ripe_stat_asn_records)
     return sort_records(records)
 
 

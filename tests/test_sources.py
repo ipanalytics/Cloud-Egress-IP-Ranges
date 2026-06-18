@@ -12,7 +12,7 @@ from cloud_egress_ip_ranges.sources.asn_bgp import (
 from cloud_egress_ip_ranges.sources.azure import parse_azure_service_tags
 from cloud_egress_ip_ranges.sources.atlassian import parse_atlassian_ip_ranges
 from cloud_egress_ip_ranges.sources.cloudflare import parse_cloudflare_api, parse_cloudflare_text
-from cloud_egress_ip_ranges.sources.common import build_request
+from cloud_egress_ip_ranges.sources.common import build_request, normalize_url
 from cloud_egress_ip_ranges.sources.fastly import parse_fastly_public_ip_list
 from cloud_egress_ip_ranges.sources.github import parse_github_meta
 from cloud_egress_ip_ranges.sources.gitlab import parse_gitlab_com_docs
@@ -139,6 +139,12 @@ class SourceParserTests(unittest.TestCase):
         request = build_request("https://download.microsoft.com/example.json")
         self.assertIn("cloud-egress-ip-ranges", request.headers["User-agent"])
         self.assertIn("application/json", request.headers["Accept"])
+
+    def test_markdown_url_is_normalized_before_fetch(self) -> None:
+        url = "https://download.microsoft.com/download/example/ServiceTags_Public_20260608.json"
+        markdown_url = f"[{url}]({url})"
+        self.assertEqual(normalize_url(markdown_url), url)
+        self.assertEqual(build_request(markdown_url).full_url, url)
 
 
 if __name__ == "__main__":
